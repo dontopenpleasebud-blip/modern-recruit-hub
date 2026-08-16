@@ -67,7 +67,7 @@ function useTypedRole() {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    const current = profile.roles[i];
+    const current = profile.roles[i] ?? "";
     let t: ReturnType<typeof setTimeout>;
     if (!deleting) {
       if (text.length < current.length) {
