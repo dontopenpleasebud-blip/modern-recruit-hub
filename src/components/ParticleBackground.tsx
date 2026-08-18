@@ -99,8 +99,7 @@ export default function ParticleBackground() {
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
 
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
+      for (const p of particles) {
         p.x += p.vx;
         p.y += p.vy;
 
@@ -116,10 +115,10 @@ export default function ParticleBackground() {
       ctx.lineWidth = 1;
 
       for (let i = 0; i < particles.length; i++) {
-        const p1 = particles[i];
+        const p1 = particles[i]!;
         let connections = 0;
         for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
+          const p2 = particles[j]!;
           const dx = p1.x - p2.x;
           const dy = p1.y - p2.y;
           const dist = Math.hypot(dx, dy);
@@ -137,8 +136,7 @@ export default function ParticleBackground() {
       }
 
       if (mouse.x > -1000) {
-        for (let i = 0; i < particles.length; i++) {
-          const p = particles[i];
+        for (const p of particles) {
           const dx = p.x - mouse.x;
           const dy = p.y - mouse.y;
           const dist = Math.hypot(dx, dy);
