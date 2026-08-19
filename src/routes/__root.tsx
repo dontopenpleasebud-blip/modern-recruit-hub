@@ -144,6 +144,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Loader />
+      <ParticleBackground />
       <div className="grain flex min-h-screen flex-col">
         <SiteHeader />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
