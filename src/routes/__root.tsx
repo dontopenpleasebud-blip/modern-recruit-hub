@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import Loader from "@/components/Loader";
 import ParticleBackground from "@/components/ParticleBackground";
+import CustomCursor from "@/components/CustomCursor";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
