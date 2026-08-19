@@ -68,6 +68,9 @@
   --input: oklch(0.98 0.01 85 / 16%);
   --ring: oklch(0.82 0.15 80 / 60%);
 
+  --particle-color: rgba(212, 163, 115, 0.45);
+  --particle-line: rgba(212, 163, 115, 0.12);
+
   --gradient-primary: linear-gradient(
     120deg,
     oklch(0.86 0.14 95),
