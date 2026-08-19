@@ -146,6 +146,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <Loader />
       <ParticleBackground />
+      <CustomCursor />
       <div className="grain flex min-h-screen flex-col">
         <SiteHeader />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
