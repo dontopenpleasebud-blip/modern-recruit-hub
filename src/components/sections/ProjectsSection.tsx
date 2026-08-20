@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
-import { PageTransition, Reveal, SectionHeading } from "@/components/Reveal";
+import { Reveal, SectionHeading } from "@/components/Reveal";
+import Section from "@/components/sections/Section";
 import { projects, type Project } from "@/data/portfolio";
 import {
   Dialog,
@@ -11,47 +11,11 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 
-const title = "Projects — Katakam Bhargav | React, Node.js & MongoDB Builds";
-const description =
-  "Full stack projects by Katakam Bhargav: mini-Trello real-time task manager, Personal Budget Tracker, StocksApp dashboard, and REST API backends built with React, Node.js and MongoDB.";
-
-export const Route = createFileRoute("/projects")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/projects" },
-    ],
-    links: [{ rel: "canonical", href: "/projects" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          name: "Projects by Katakam Bhargav",
-          itemListElement: projects.map((p, i) => ({
-            "@type": "ListItem",
-            position: i + 1,
-            name: p.title,
-            description: p.desc,
-            url: p.live ?? p.github,
-          })),
-        }),
-      },
-    ],
-  }),
-  component: Projects,
-});
-
-function Projects() {
+export default function ProjectsSection() {
   const [active, setActive] = useState<Project | null>(null);
 
   return (
-    <PageTransition>
+    <Section id="projects">
       <SectionHeading
         eyebrow="What I've built"
         title="Selected"
@@ -87,9 +51,9 @@ function Projects() {
                 <span className="font-mono text-[0.6rem] uppercase tracking-wider text-muted-foreground">
                   {p.date}
                 </span>
-                <h2 className="mt-1.5 text-base leading-snug transition-colors group-hover:text-primary sm:text-xl md:text-2xl">
+                <h3 className="mt-1.5 text-base leading-snug transition-colors group-hover:text-primary sm:text-xl md:text-2xl">
                   {p.title}
-                </h2>
+                </h3>
                 <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-muted-foreground sm:text-sm sm:line-clamp-none">
                   {p.desc}
                 </p>
@@ -102,11 +66,6 @@ function Projects() {
                       {t}
                     </span>
                   ))}
-                  {p.tags.length > 3 && (
-                    <span className="rounded-full bg-secondary px-2 py-0.5 font-mono text-[0.6rem] text-muted-foreground">
-                      +{p.tags.length - 3}
-                    </span>
-                  )}
                 </div>
                 <span className="mt-4 inline-flex items-center gap-1.5 text-xs text-primary/90 transition-transform duration-300 group-hover:translate-x-0.5 sm:text-sm">
                   View details <ArrowUpRight size={14} />
@@ -180,6 +139,6 @@ function Projects() {
           </AnimatePresence>
         </DialogContent>
       </Dialog>
-    </PageTransition>
+    </Section>
   );
 }

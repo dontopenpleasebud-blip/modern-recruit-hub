@@ -34,13 +34,17 @@ export default function SiteFooter() {
 
           <nav aria-label="Footer" className="grid grid-cols-2 gap-x-10 gap-y-2">
             {navLinks.map((l) => (
-              <Link
+              <a
                 key={l.to}
-                to={l.to}
+                href={`#${l.to}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(l.to);
+                }}
                 className="text-sm text-muted-foreground transition-colors hover:text-primary"
               >
                 {l.label}
-              </Link>
+              </a>
             ))}
           </nav>
         </div>

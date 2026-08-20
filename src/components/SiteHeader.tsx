@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { navLinks, profile } from "@/data/portfolio";
+import { scrollToSection } from "@/lib/scroll";
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const [active, setActive] = useState<string>("home");
   const { scrollYProgress } = useScroll();
   const bar = useSpring(scrollYProgress, { stiffness: 140, damping: 24, mass: 0.3 });
-
-  useEffect(() => setOpen(false), [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -19,6 +17,30 @@ export default function SiteHeader() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    const sections = navLinks
+      .map((l) => document.getElementById(l.to))
+      .filter((el): el is HTMLElement => !!el);
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] },
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
+  const go = (id: string) => {
+    setOpen(false);
+    scrollToSection(id);
+  };
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -37,39 +59,47 @@ export default function SiteHeader() {
           aria-label="Main"
           className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4 sm:px-8"
         >
-          <Link to="/" className="group flex items-center gap-2">
+          <a
+            href="#home"
+            onClick={(e) => {
+              e.preventDefault();
+              go("home");
+            }}
+            className="group flex items-center gap-2"
+          >
             <span className="flex h-8 w-8 items-center justify-center rounded-md bg-primary font-mono text-sm font-bold text-primary-foreground">
               KB
             </span>
-            <span className="hidden font-display text-lg sm:block">
-              {profile.name}
-            </span>
-          </Link>
+            <span className="hidden font-display text-lg sm:block">{profile.name}</span>
+          </a>
 
           <ul className="hidden items-center gap-1 lg:flex">
-            {navLinks.map((l) => (
-              <li key={l.to}>
-                <Link
-                  to={l.to}
-                  className="relative rounded-full px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  activeProps={{ className: "text-foreground" }}
-                  activeOptions={{ exact: l.to === "/" }}
-                >
-                  {({ isActive }) => (
-                    <>
-                      {isActive && (
-                        <motion.span
-                          layoutId="nav-pill"
-                          className="absolute inset-0 -z-10 rounded-full bg-secondary"
-                          transition={{ type: "spring", stiffness: 320, damping: 30 }}
-                        />
-                      )}
-                      {l.label}
-                    </>
-                  )}
-                </Link>
-              </li>
-            ))}
+            {navLinks.map((l) => {
+              const isActive = active === l.to;
+              return (
+                <li key={l.to}>
+                  <a
+                    href={`#${l.to}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      go(l.to);
+                    }}
+                    className={`relative rounded-full px-3 py-2 text-sm transition-colors hover:text-foreground ${
+                      isActive ? "text-foreground" : "text-muted-foreground"
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-pill"
+                        className="absolute inset-0 -z-10 rounded-full bg-secondary"
+                        transition={{ type: "spring", stiffness: 320, damping: 30 }}
+                      />
+                    )}
+                    {l.label}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="flex items-center gap-2">
@@ -111,14 +141,18 @@ export default function SiteHeader() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.04 * i }}
                 >
-                  <Link
-                    to={l.to}
-                    className="block border-b border-border/60 py-3 text-lg text-muted-foreground"
-                    activeProps={{ className: "text-primary" }}
-                    activeOptions={{ exact: l.to === "/" }}
+                  <a
+                    href={`#${l.to}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      go(l.to);
+                    }}
+                    className={`block border-b border-border/60 py-3 text-lg ${
+                      active === l.to ? "text-primary" : "text-muted-foreground"
+                    }`}
                   >
                     {l.label}
-                  </Link>
+                  </a>
                 </motion.li>
               ))}
             </ul>
