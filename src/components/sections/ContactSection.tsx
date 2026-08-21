@@ -1,6 +1,7 @@
 import { Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { Reveal, SectionHeading } from "@/components/Reveal";
 import Section from "@/components/sections/Section";
+import ContactForm from "@/components/ContactForm";
 import { profile } from "@/data/portfolio";
 
 const items = [
@@ -64,24 +65,27 @@ export default function ContactSection() {
             <h3 className="relative text-3xl">
               Available for <span className="text-gradient italic">work</span>
             </h3>
-            <p className="relative mt-4 text-muted-foreground">
-              I reply to every genuine message within a day. Send over the role, the stack
-              and the timeline — I'll tell you honestly whether I'm the right fit.
+            <p className="relative mt-3 text-sm text-muted-foreground">
+              Send it straight from here — role, stack and timeline. I reply to every
+              genuine message within a day.
             </p>
-            <a
-              href={`mailto:${profile.email}?subject=Opportunity%20for%20Katakam%20Bhargav`}
-              className="relative mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
-            >
-              <Mail size={16} /> Email me
-            </a>
-            <a
-              href={profile.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative mt-3 inline-flex w-fit items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
-            >
-              Or download my résumé
-            </a>
+            <ContactForm />
+            <div className="relative mt-5 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+              <a
+                href={`mailto:${profile.email}?subject=Opportunity%20for%20Katakam%20Bhargav`}
+                className="inline-flex items-center gap-2 transition-colors hover:text-primary"
+              >
+                <Mail size={15} /> Or email me directly
+              </a>
+              <a
+                href={profile.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-primary"
+              >
+                Download résumé
+              </a>
+            </div>
           </div>
         </Reveal>
       </div>
