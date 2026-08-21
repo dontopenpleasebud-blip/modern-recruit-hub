@@ -41,9 +41,9 @@ export function SectionHeading({
       <span className="font-mono text-[0.7rem] uppercase tracking-[0.3em] text-primary">
         {eyebrow}
       </span>
-      <h1 className="mt-4 text-4xl leading-[1.05] sm:text-5xl">
+      <h2 className="mt-4 text-4xl leading-[1.05] sm:text-5xl">
         {title} {accent && <span className="text-gradient italic">{accent}</span>}
-      </h1>
+      </h2>
       {description && (
         <p className="mt-4 text-base leading-relaxed text-muted-foreground">
           {description}
