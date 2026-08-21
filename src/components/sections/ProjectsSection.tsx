@@ -107,7 +107,7 @@ export default function ProjectsSection() {
                     <img
                       src={active.image}
                       alt={`${active.title} — project screenshot`}
-                      className="h-full w-full object-cover object-top"
+                      className="h-full w-full object-contain"
                     />
                   )}
 
