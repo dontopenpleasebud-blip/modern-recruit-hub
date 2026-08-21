@@ -1,6 +1,6 @@
-import { Link } from "@tanstack/react-router";
 import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
 import { navLinks, profile } from "@/data/portfolio";
+import { scrollToSection } from "@/lib/scroll";
 
 export default function SiteFooter() {
   return (
