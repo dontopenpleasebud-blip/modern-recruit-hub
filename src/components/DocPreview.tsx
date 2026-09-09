@@ -11,13 +11,13 @@ type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title: string;
-  subtitle?: string;
+  subtitle?: string | undefined;
   /** File served from the site (pdf or image) */
   file: string;
   /** Optional external verification / source link */
-  link?: string;
-  linkLabel?: string;
-  downloadName?: string;
+  link?: string | undefined;
+  linkLabel?: string | undefined;
+  downloadName?: string | undefined;
 };
 
 const isImage = (src: string) => /\.(png|jpe?g|webp|gif|svg)$/i.test(src);
