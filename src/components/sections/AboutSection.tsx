@@ -15,6 +15,8 @@ const details = [
 ];
 
 export default function AboutSection() {
+  const [resumeOpen, setResumeOpen] = useState(false);
+
   return (
     <Section id="about">
       <SectionHeading
@@ -46,14 +48,13 @@ export default function AboutSection() {
           </div>
 
           <Reveal delay={0.2} className="mt-10 flex flex-wrap gap-3">
-            <a
-              href={profile.resume}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={() => setResumeOpen(true)}
               className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
             >
               <FileText size={16} /> View résumé
-            </a>
+            </button>
             <a
               href={profile.resume}
               download="KATAKAM_BHARGAV_RESUME.pdf"
@@ -90,6 +91,15 @@ export default function AboutSection() {
           </div>
         </div>
       </div>
+
+      <DocPreview
+        open={resumeOpen}
+        onOpenChange={setResumeOpen}
+        title="Katakam Bhargav — Résumé"
+        subtitle="Full stack developer · Andhra Pradesh, India"
+        file={profile.resume}
+        downloadName="KATAKAM_BHARGAV_RESUME.pdf"
+      />
     </Section>
   );
 }
