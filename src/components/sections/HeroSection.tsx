@@ -41,7 +41,7 @@ export default function HeroSection() {
   return (
     <Section id="home" className="pt-28 sm:pt-32">
       <div className="relative grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
-        <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] max-w-[120vw] -translate-x-1/2 glow-bg" />
+        <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] max-w-full -translate-x-1/2 glow-bg" />
 
         <div className="relative">
           <motion.span
