@@ -36,6 +36,7 @@ function useTypedRole() {
 
 export default function HeroSection() {
   const typed = useTypedRole();
+  const [resumeOpen, setResumeOpen] = useState(false);
 
   return (
     <Section id="home" className="pt-28 sm:pt-32">
@@ -99,6 +100,13 @@ export default function HeroSection() {
               View projects
               <ArrowRight size={17} className="transition-transform group-hover:translate-x-0.5" />
             </a>
+            <button
+              type="button"
+              onClick={() => setResumeOpen(true)}
+              className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-6 py-3 text-sm font-medium text-primary transition-colors hover:bg-primary/10"
+            >
+              <FileText size={16} /> View résumé
+            </button>
             <a
               href="#contact"
               onClick={(e) => {
