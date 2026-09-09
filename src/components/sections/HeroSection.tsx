@@ -177,6 +177,15 @@ export default function HeroSection() {
           </Reveal>
         ))}
       </div>
+
+      <DocPreview
+        open={resumeOpen}
+        onOpenChange={setResumeOpen}
+        title="Katakam Bhargav — Résumé"
+        subtitle="Full stack developer · Andhra Pradesh, India"
+        file={profile.resume}
+        downloadName="KATAKAM_BHARGAV_RESUME.pdf"
+      />
     </Section>
   );
 }
