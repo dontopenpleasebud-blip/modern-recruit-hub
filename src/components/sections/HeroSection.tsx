@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, FileText, Github, Linkedin, Mail } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import Section from "@/components/sections/Section";
+import DocPreview from "@/components/DocPreview";
 import { profile, stats } from "@/data/portfolio";
 import { scrollToSection } from "@/lib/scroll";
 
