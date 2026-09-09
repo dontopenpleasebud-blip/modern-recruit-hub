@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, FileText, Github, Linkedin, Mail } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import Section from "@/components/sections/Section";
+import DocPreview from "@/components/DocPreview";
 import { profile, stats } from "@/data/portfolio";
 import { scrollToSection } from "@/lib/scroll";
 
@@ -35,6 +36,7 @@ function useTypedRole() {
 
 export default function HeroSection() {
   const typed = useTypedRole();
+  const [resumeOpen, setResumeOpen] = useState(false);
 
   return (
     <Section id="home" className="pt-28 sm:pt-32">
@@ -98,6 +100,13 @@ export default function HeroSection() {
               View projects
               <ArrowRight size={17} className="transition-transform group-hover:translate-x-0.5" />
             </a>
+            <button
+              type="button"
+              onClick={() => setResumeOpen(true)}
+              className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-6 py-3 text-sm font-medium text-primary transition-colors hover:bg-primary/10"
+            >
+              <FileText size={16} /> View résumé
+            </button>
             <a
               href="#contact"
               onClick={(e) => {
@@ -168,6 +177,15 @@ export default function HeroSection() {
           </Reveal>
         ))}
       </div>
+
+      <DocPreview
+        open={resumeOpen}
+        onOpenChange={setResumeOpen}
+        title="Katakam Bhargav — Résumé"
+        subtitle="Full stack developer · Andhra Pradesh, India"
+        file={profile.resume}
+        downloadName="KATAKAM_BHARGAV_RESUME.pdf"
+      />
     </Section>
   );
 }
