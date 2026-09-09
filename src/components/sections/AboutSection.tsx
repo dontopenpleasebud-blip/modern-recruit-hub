@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Download, FileText } from "lucide-react";
 import { Reveal, SectionHeading } from "@/components/Reveal";
 import Section from "@/components/sections/Section";
+import DocPreview from "@/components/DocPreview";
 import { profile, stats } from "@/data/portfolio";
 
 const details = [
