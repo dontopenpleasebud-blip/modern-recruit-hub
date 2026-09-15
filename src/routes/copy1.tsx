@@ -371,7 +371,8 @@ function Copy1Page() {
                       </Copyable>
                     ))}
                   </div>
-                  <div className="mt-4">
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <CopyButton label="Copy all descriptions" value={item.points.join("\n")} />
                     <CopyButton
                       label="Copy everything"
                       value={[item.title, item.org, item.date, ...item.points].join("\n")}
