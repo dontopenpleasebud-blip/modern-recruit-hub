@@ -332,11 +332,22 @@ function Copy1Page() {
 
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
-            <div className="mb-6 flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <Briefcase size={18} />
-              </span>
-              <h3 className="text-2xl">Work</h3>
+            <div className="mb-6 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <Briefcase size={18} />
+                </span>
+                <h3 className="text-2xl">Work</h3>
+              </div>
+              <CopyButton
+                label="Copy all experience"
+                value={experience
+                  .map(
+                    (item) =>
+                      [item.title, item.org, item.date, ...item.points].join("\n")
+                  )
+                  .join("\n\n")}
+              />
             </div>
 
             <div className="space-y-5">
