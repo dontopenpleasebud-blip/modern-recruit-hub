@@ -38,7 +38,7 @@ export default function ParticleBackground() {
 
     const particles: Particle[] = [];
     const mouse = { x: -1000, y: -1000 };
-    let rgb = "212, 163, 115";
+    let rgb = "125, 166, 255";
 
     const resize = () => {
       width = window.innerWidth;
@@ -93,6 +93,13 @@ export default function ParticleBackground() {
     window.addEventListener("resize", onResize);
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseleave", onMouseLeave);
+
+    // Re-read particle colors when the theme class flips
+    const themeObserver = new MutationObserver(readColor);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
 
     let raf = 0;
 
