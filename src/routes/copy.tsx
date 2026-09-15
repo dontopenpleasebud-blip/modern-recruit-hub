@@ -123,6 +123,23 @@ function CopyPage() {
       </Block>
 
       <Block title="Experience">
+        <div className="surface-card rounded-2xl p-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-sm text-muted-foreground">
+              Copy every experience bullet across all roles in one go.
+            </p>
+            <CopyButton
+              value={experience
+                .map(
+                  (e) =>
+                    `${e.title} — ${e.org} (${e.date})\n${e.points.map((p) => `• ${p}`).join("\n")}`
+                )
+                .join("\n\n")}
+              label="Copy all descriptions"
+            />
+          </div>
+        </div>
+
         {experience.map((e) => (
           <article key={e.title} className="surface-card rounded-2xl p-5">
             <h3 className="select-all text-lg">{e.title}</h3>
@@ -148,6 +165,10 @@ function CopyPage() {
               <CopyButton
                 value={`${e.title}\n${e.org}\n${e.date}\n${e.points.map((p) => `• ${p}`).join("\n")}`}
                 label="Everything"
+              />
+              <CopyButton
+                value={e.points.map((p) => `• ${p}`).join("\n")}
+                label="All points"
               />
             </div>
           </article>
