@@ -104,6 +104,7 @@ export default function SiteHeader() {
           </ul>
 
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <a
               href={profile.resume}
               target="_blank"
