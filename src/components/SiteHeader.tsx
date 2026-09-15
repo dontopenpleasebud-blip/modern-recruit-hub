@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { navLinks, profile } from "@/data/portfolio";
 import { scrollToSection } from "@/lib/scroll";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);

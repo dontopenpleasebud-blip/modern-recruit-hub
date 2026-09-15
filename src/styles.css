@@ -172,7 +172,7 @@
   }
 
   ::selection {
-    background: oklch(0.82 0.15 80 / 30%);
+    background: color-mix(in oklab, var(--primary) 30%, transparent);
   }
 
   ::-webkit-scrollbar {
