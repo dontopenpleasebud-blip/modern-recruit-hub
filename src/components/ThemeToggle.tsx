@@ -28,9 +28,17 @@ export default function ThemeToggle() {
       localStorage.setItem(STORAGE_KEY, next);
       applyTheme(next);
     };
-    // Animated cross-fade of the whole page when supported
+    // Directional side-wipe of the whole page when supported:
+    // light mode sweeps in from the right, dark mode from the left.
     if (typeof document !== "undefined" && "startViewTransition" in document) {
-      (document as Document & { startViewTransition: (cb: () => void) => void }).startViewTransition(update);
+      document.documentElement.setAttribute("data-theme-wipe", next === "light" ? "from-right" : "from-left");
+      document.body.classList.add("theme-wiping");
+      const vt = (
+        document as Document & {
+          startViewTransition: (cb: () => void) => { finished: Promise<void> };
+        }
+      ).startViewTransition(update);
+      vt.finished.finally(() => document.body.classList.remove("theme-wiping"));
     } else {
       update();
     }
