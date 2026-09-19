@@ -266,3 +266,44 @@
     cursor: none;
   }
 }
+
+/* ===== Theme side-wipe (View Transitions) ===== */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  mix-blend-mode: normal;
+}
+
+/* Old theme stays put underneath — no cross-fade */
+::view-transition-old(root) {
+  animation-name: none;
+}
+
+/* Light mode sweeps in from the right */
+html[data-theme-wipe="from-right"]::view-transition-new(root) {
+  animation-name: theme-wipe-from-right;
+}
+
+/* Dark mode sweeps in from the left */
+html[data-theme-wipe="from-left"]::view-transition-new(root) {
+  animation-name: theme-wipe-from-left;
+}
+
+@keyframes theme-wipe-from-right {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    clip-path: inset(0 0 0 0%);
+  }
+}
+
+@keyframes theme-wipe-from-left {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0% 0 0);
+  }
+}
