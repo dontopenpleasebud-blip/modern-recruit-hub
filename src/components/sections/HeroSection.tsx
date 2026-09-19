@@ -54,7 +54,7 @@ export default function HeroSection() {
             {profile.status}
           </motion.span>
 
-          <h1 className="mt-6 text-[clamp(2.6rem,8vw,5rem)] leading-[0.98]">
+          <h1 className="mt-6 text-[clamp(2.6rem,8vw,5rem)] leading-[1.06]">
             {"Katakam".split("").map((c, idx) => (
               <motion.span
                 key={idx}
@@ -71,7 +71,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.42, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="text-gradient inline-block italic"
+              className="text-gradient inline-block pb-[0.1em] italic"
             >
               Bhargav
             </motion.span>
