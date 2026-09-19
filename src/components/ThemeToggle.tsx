@@ -21,17 +21,25 @@ export default function ThemeToggle() {
     applyTheme(saved);
   }, []);
 
-  const toggle = () => {
+  const toggle = (event: React.MouseEvent<HTMLButtonElement>) => {
     const next: Theme = theme === "dark" ? "light" : "dark";
     const update = () => {
       setTheme(next);
       localStorage.setItem(STORAGE_KEY, next);
       applyTheme(next);
     };
-    // Directional side-wipe of the whole page when supported:
-    // light mode sweeps in from the right, dark mode from the left.
     if (typeof document !== "undefined" && "startViewTransition" in document) {
-      document.documentElement.setAttribute("data-theme-wipe", next === "light" ? "from-right" : "from-left");
+      const rect = event.currentTarget.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      const radius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y),
+      );
+
+      document.documentElement.style.setProperty("--theme-reveal-x", `${x}px`);
+      document.documentElement.style.setProperty("--theme-reveal-y", `${y}px`);
+      document.documentElement.style.setProperty("--theme-reveal-radius", `${radius + 48}px`);
       document.body.classList.add("theme-wiping");
       const vt = (
         document as Document & {
