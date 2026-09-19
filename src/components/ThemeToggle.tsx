@@ -31,7 +31,7 @@ export default function ThemeToggle() {
     // Directional side-wipe of the whole page when supported:
     // light mode sweeps in from the right, dark mode from the left.
     if (typeof document !== "undefined" && "startViewTransition" in document) {
-      document.documentElement.dataset.themeWipe = next === "light" ? "from-right" : "from-left";
+      document.documentElement.setAttribute("data-theme-wipe", next === "light" ? "from-right" : "from-left");
       document.body.classList.add("theme-wiping");
       const vt = (
         document as Document & {
