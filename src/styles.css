@@ -267,43 +267,49 @@
   }
 }
 
-/* ===== Theme side-wipe (View Transitions) ===== */
+/* ===== Theme reveal from the navbar toggle (View Transitions) ===== */
+@property --theme-wave-radius {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.55s;
-  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
   mix-blend-mode: normal;
 }
 
-/* Old theme stays put underneath — no cross-fade */
 ::view-transition-old(root) {
   animation-name: none;
 }
 
-/* Light mode sweeps in from the right */
-html[data-theme-wipe="from-right"]::view-transition-new(root) {
-  animation-name: theme-wipe-from-right;
+::view-transition-new(root) {
+  animation: theme-wave-reveal 0.72s var(--ease-out-expo) both;
+  mask-image: radial-gradient(
+    circle at var(--theme-reveal-x) var(--theme-reveal-y),
+    black 0,
+    black calc(var(--theme-wave-radius) - 22px),
+    transparent calc(var(--theme-wave-radius) + 22px)
+  );
+  -webkit-mask-image: radial-gradient(
+    circle at var(--theme-reveal-x) var(--theme-reveal-y),
+    black 0,
+    black calc(var(--theme-wave-radius) - 22px),
+    transparent calc(var(--theme-wave-radius) + 22px)
+  );
 }
 
-/* Dark mode sweeps in from the left */
-html[data-theme-wipe="from-left"]::view-transition-new(root) {
-  animation-name: theme-wipe-from-left;
-}
-
-@keyframes theme-wipe-from-right {
+@keyframes theme-wave-reveal {
   from {
-    clip-path: inset(0 0 0 100%);
+    --theme-wave-radius: 0px;
   }
   to {
-    clip-path: inset(0 0 0 0%);
+    --theme-wave-radius: var(--theme-reveal-radius);
   }
 }
 
-@keyframes theme-wipe-from-left {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
-  to {
-    clip-path: inset(0 0% 0 0);
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) {
+    animation-duration: 0.001ms;
   }
 }
