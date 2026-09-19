@@ -28,8 +28,10 @@ export default function ThemeToggle() {
       localStorage.setItem(STORAGE_KEY, next);
       applyTheme(next);
     };
-    // Animated cross-fade of the whole page when supported
+    // Directional side-wipe of the whole page when supported:
+    // light mode sweeps in from the right, dark mode from the left.
     if (typeof document !== "undefined" && "startViewTransition" in document) {
+      document.documentElement.dataset.themeWipe = next === "light" ? "from-right" : "from-left";
       (document as Document & { startViewTransition: (cb: () => void) => void }).startViewTransition(update);
     } else {
       update();
