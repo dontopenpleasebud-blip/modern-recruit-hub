@@ -32,7 +32,13 @@ export default function ThemeToggle() {
     // light mode sweeps in from the right, dark mode from the left.
     if (typeof document !== "undefined" && "startViewTransition" in document) {
       document.documentElement.dataset.themeWipe = next === "light" ? "from-right" : "from-left";
-      (document as Document & { startViewTransition: (cb: () => void) => void }).startViewTransition(update);
+      document.body.classList.add("theme-wiping");
+      const vt = (
+        document as Document & {
+          startViewTransition: (cb: () => void) => { finished: Promise<void> };
+        }
+      ).startViewTransition(update);
+      vt.finished.finally(() => document.body.classList.remove("theme-wiping"));
     } else {
       update();
     }
